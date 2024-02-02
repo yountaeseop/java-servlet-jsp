@@ -9,7 +9,6 @@
 </head>
 <body>
 <h1>학생 조회</h1>
-<p><a href="/student/register" >학생(조회)</a></p>
 <%--request에서 학생 정보를 가져옴--%>
 <%Student student = (Student)request.getAttribute("student");%>
 <style>
@@ -67,7 +66,7 @@
     <div class="menu">
         <a href="/student/list">&nbsp;리스트</a>&nbsp;
         <!-- todo ${update_link} 설정 c:url -->
-        <a href="/student/update">수정</a>&nbsp;
+        <a href="/student/update?studentId=${student.id}">수정</a>&nbsp;
         <form action="/student/delete" method="post" id="deleteForm">
             <input type="button" value="삭제">
         </form>

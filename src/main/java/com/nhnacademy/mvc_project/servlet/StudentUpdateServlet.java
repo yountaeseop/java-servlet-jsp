@@ -3,6 +3,7 @@ package com.nhnacademy.mvc_project.servlet;
 import com.nhnacademy.mvc_project.Gender;
 import com.nhnacademy.mvc_project.Student;
 import com.nhnacademy.mvc_project.repository.StudentRepository;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -11,27 +12,44 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.time.LocalDateTime;
 
-@WebServlet(name = "studentRegisterServlet", urlPatterns = "/student/register")
-public class StudentRegisterServlet extends HttpServlet {
+@WebServlet(name = "studentUpdateServlet", urlPatterns = "/student/update")
+public class StudentUpdateServlet extends HttpServlet {
     private StudentRepository studentRepository;
 
     @Override
     public void init(ServletConfig config) throws ServletException {
+        //todo init studentRepository
         studentRepository = (StudentRepository) config.getServletContext().getAttribute("studentRepository");
     }
 
     @Override
-    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        // /student/register.jsp <- forward 하기
-        RequestDispatcher dispatcher = req.getRequestDispatcher("/studentRegister.jsp");
-        req.setAttribute("action", "/student/register");
-        dispatcher.forward(req, resp);
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+        //todo 학생조회
+        req.setCharacterEncoding("UTF-8"); // 인코딩 설정
+
+        //todo id null check
+        String studentId = req.getParameter("studentId");
+
+        if (studentId == null) {
+            System.out.println("학생 아이디가 없습니다.");
+            return;
+        }
+
+        //todo student 조회
+        Student student = studentRepository.getStudentById(studentId);
+        req.setAttribute("student", student);
+        req.setAttribute("action", "/student/update");
+
+        //todo forward : /register.jsp
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/studentRegister.jsp");
+        dispatcher.forward(req, resp);
     }
 
     @Override
-    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
 
         // 요청 파라미터에서 학생 정보 추출
@@ -61,10 +79,11 @@ public class StudentRegisterServlet extends HttpServlet {
         Student student = new Student(studentId, name, gender, ageValue);
 
         //todo save 구현
-        studentRepository.save(student);
+        studentRepository.update(student);
 
         //todo redirect /student/view?id=stdent1
-        resp.sendRedirect("/student/view?studentId="+studentId);
+        resp.sendRedirect("/student/view?studentId=" + studentId);
 
     }
 }
+

@@ -1,5 +1,3 @@
-<%@ page import="com.nhnacademy.mvc_project.Student" %>
-<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
@@ -12,7 +10,7 @@
 <body>
 <h1>학생 리스트</h1>
 <p><a href="/student/register" >학생(등록)</a></p>
-<%List<Student> studentList = (List<Student>)request.getAttribute("studentList");%>
+
 <style>
     *{
         font-size:20pt;
@@ -41,18 +39,9 @@
             <td>${student.name}</td>
             <td>${student.gender}</td>
             <td>${student.age}</td>
-            <td><a href="/student/view" >조회</a></td>
+            <td><a href="/student/view?studentId=${student.id}" >조회</a></td>
         </tr>
     </c:forEach>
-    <%for(Student student : studentList) {%>
-        <tr>
-            <td><%= student.getId()%></td>
-            <td><%= student.getName()%></td>
-            <td><%= student.getGender()%></td>
-            <td><%= student.getAge()%></td>
-            <td><a href="/student/view" >조회</a></td>
-        </tr>
-    <%}%>
     </tbody>
     <tfoot>
         <tr>

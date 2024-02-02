@@ -14,6 +14,7 @@ public class Student {
         this.name = name;
         this.gender = gender;
         this.age = age;
+        this.createAt = LocalDateTime.now(); // 현재 시간으로 초기화
     }
 
     public String getId() {

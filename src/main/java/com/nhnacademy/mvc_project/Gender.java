@@ -1,5 +1,9 @@
 package com.nhnacademy.mvc_project;
 
 public enum  Gender{
-    M,F
+    M,F;
+    @Override
+    public String toString() {
+        return this.name();
+    }
 }
