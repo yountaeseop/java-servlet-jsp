@@ -67,8 +67,8 @@
         <a href="/student/list">&nbsp;리스트</a>&nbsp;
         <!-- todo ${update_link} 설정 c:url -->
         <a href="/student/update?studentId=${student.id}">수정</a>&nbsp;
-        <form action="/student/delete" method="post" id="deleteForm">
-            <input type="button" value="삭제">
+        <form action="/student/delete?studentId=${student.id}" method="post" id="deleteForm">
+            <button type="submit">삭제</button>
         </form>
     </div>
 </body>
