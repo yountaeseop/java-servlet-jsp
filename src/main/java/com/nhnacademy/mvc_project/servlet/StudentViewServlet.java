@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Objects;
 
 @Slf4j
 @WebServlet(name = "studentViewServlet", urlPatterns = "/student/view")
@@ -26,23 +27,20 @@ public class StudentViewServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        req.setCharacterEncoding("UTF-8"); // 인코딩 설정
-
-        //todo id null check
         String studentId = req.getParameter("studentId");
-
-        if(studentId == null){
-            System.out.println("학생 아이디가 없습니다.");
-            return;
+        if(Objects.isNull(studentId)){
+            throw new RuntimeException("parameter [id] : null");
         }
 
-        //todo student 조회
         Student student = studentRepository.getStudentById(studentId);
+        if(Objects.isNull(student)){
+            throw new RuntimeException("studentId를 확인해주세요");
+        }
+
+        log.error("student:{}", student);
         req.setAttribute("student",student);
 
-        //todo /student/view.jsp <-- forward
-        RequestDispatcher dispatcher = req.getRequestDispatcher("/view.jsp");
-        dispatcher.forward(req, resp);
+        req.setAttribute("view", "/view.jsp");
     }
 
 }

@@ -27,13 +27,14 @@
         height: 20px; /* 라디오 버튼의 높이 조정 */
     }
 </style>
-<h1>학생 등록</h1>
-<!-- todo action 주소 설정
-           //등록
-               action = /student/register
-           //수정
-               action = /student/update
-       -->
+<h1>학생 <c:choose>
+    <c:when test="${empty student}">
+        등록
+    </c:when>
+    <c:otherwise>
+        수정
+    </c:otherwise>
+</c:choose></h1>
 <form action="${action}" method="post">
     <table>
         <thead>

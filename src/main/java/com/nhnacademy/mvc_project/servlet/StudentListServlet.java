@@ -16,9 +16,7 @@ import java.util.List;
 @Slf4j
 @WebServlet(name = "studentListServlet", urlPatterns = "/student/list")
 public class StudentListServlet extends HttpServlet {
-
     private StudentRepository studentRepository;
-
     @Override
     public void init(ServletConfig config) throws ServletException {
         studentRepository = (StudentRepository) config.getServletContext().getAttribute("studentRepository");
@@ -31,11 +29,6 @@ public class StudentListServlet extends HttpServlet {
 
         // studentList를 request attribute로 설정
         req.setAttribute("studentList",studentList);
-
-        // /student/list.jsp <- forward 하기
-        RequestDispatcher dispatcher = req.getRequestDispatcher("/studentList.jsp");
-        dispatcher.forward(req, resp);
-
+        req.setAttribute("view", "/list.jsp");
     }
-
 }

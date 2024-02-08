@@ -1,3 +1,4 @@
+<jsp:useBean id="status_code" scope="request" type="javax.servlet.RequestDispatcher"/>
 <%@ page contentType="text/html;charset=UTF-8" language="java" trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 

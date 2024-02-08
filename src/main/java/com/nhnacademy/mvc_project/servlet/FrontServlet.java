@@ -20,7 +20,8 @@ public class FrontServlet extends HttpServlet {
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         //공통 처리 - 응답 content-type, character encoding 지정.
-        resp.setContentType("text/plain");
+        resp.setContentType("text/html");
+        req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
 
         try{
@@ -36,10 +37,8 @@ public class FrontServlet extends HttpServlet {
                 log.error("redirect-url : {}", view.substring(REDIRECT_PREFIX.length()+1));
 
                 //`redirect:`로 시작하면 redirect 처리.
-                String redirectUrl = view.substring(REDIRECT_PREFIX.length());
-                if(redirectUrl.equals("redirect:")){
-                    resp.sendRedirect(redirectUrl);
-                }
+                String redirectUrl = view.substring(REDIRECT_PREFIX.length()+1);
+                resp.sendRedirect(redirectUrl);
 
             } else {
                 //todo redirect 아니면 JSP에게 view 처리를 위임하여 그 결과를 include시킴.
@@ -65,13 +64,13 @@ public class FrontServlet extends HttpServlet {
         if("/student/list.do".equals(servletPath)){
             processingServlet = "/student/list";
         } else if("/student/register.do".equals(servletPath)){
-            processingServlet = "/student/list";
+            processingServlet = "/student/register";
         } else if("/student/view.do".equals(servletPath)){
-            processingServlet = "/student/list";
+            processingServlet = "/student/view";
         } else if("/student/update.do".equals(servletPath)){
-            processingServlet = "/student/list";
+            processingServlet = "/student/update";
         } else if("/student/delete.do".equals(servletPath)){
-            processingServlet = "/student/list";
+            processingServlet = "/student/delete";
         }
 
         return processingServlet;

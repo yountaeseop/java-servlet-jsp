@@ -64,10 +64,10 @@
     </table>
     </br>
     <div class="menu">
-        <a href="/student/list">&nbsp;리스트</a>&nbsp;
+        <a href="/student/list.do">&nbsp;리스트</a>&nbsp;
         <!-- todo ${update_link} 설정 c:url -->
-        <a href="/student/update?studentId=${student.id}">수정</a>&nbsp;
-        <form action="/student/delete?studentId=${student.id}" method="post" id="deleteForm">
+        <a href="/student/update.do?studentId=${student.id}">수정</a>&nbsp;
+        <form action="/student/delete.do?studentId=${student.id}" method="post" id="deleteForm">
             <button type="submit">삭제</button>
         </form>
     </div>
